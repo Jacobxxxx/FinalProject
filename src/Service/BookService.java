@@ -136,4 +136,14 @@ public class BookService {
             throw new IllegalArgumentException("评分人数不能为负数！");
         }
     }
+
+    // 根据关键词搜索图书
+    public List<Book> searchBooks(String keyword) throws SQLException {
+        return bookDao.searchBooksByKeyword(keyword);
+    }
+
+    // 获取搜索结果的总数
+    public long getSearchResultCount(String keyword) throws SQLException {
+        return bookDao.getSearchResultCount(keyword);
+    }
 }

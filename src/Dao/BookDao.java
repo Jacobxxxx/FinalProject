@@ -140,4 +140,30 @@ public class BookDao {
             DataSourceUtils.closeConnection(conn);
         }
     }
+
+
+    // 根据关键词进行搜索（书名、作者模糊搜索）
+    public List<Book> searchBooksByKeyword(String keyword) throws SQLException {
+        String sql = "SELECT * FROM books WHERE book_name LIKE ? OR author LIKE ? ";
+        Connection conn = DataSourceUtils.getConnection();
+
+        try {
+            return runner.query(conn, sql, new BeanListHandler<>(Book.class), "%" + keyword + "%", "%" + keyword + "%");
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
+
+    // 获取搜索结果的总记录数
+    public long getSearchResultCount(String keyword) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM books WHERE book_name LIKE ? OR author LIKE ?";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            return runner.query(conn, sql, new ScalarHandler<>(), "%" + keyword + "%", "%" + keyword + "%");
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
 }
+
+

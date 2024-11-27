@@ -150,8 +150,10 @@
     <header>
         <h1>图书推荐系统</h1>
         <div class="search-bar">
-          <input type="text" placeholder="请输入图书名称...">
-          <button>搜索</button>
+          <form action="search" method="post">
+            <input type="text" name="keyword" placeholder="请输入图书名称..." value="${keyword}">
+            <button type="submit">搜索</button>
+          </form>
         </div>
         <div class="user-actions">
           <a href="login.jsp">登录</a>

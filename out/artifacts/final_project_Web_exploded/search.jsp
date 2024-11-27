@@ -25,22 +25,20 @@
 
     <nav>
         <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">编程</a></li>
-            <li><a href="#">科学</a></li>
-            <li><a href="#">商业</a></li>
-            <li><a href="#">心理</a></li>
-            <li><a href="#">生活</a></li>
-            <li><a href="#">哲学</a></li>
-            <li><a href="#">悬疑</a></li>
-            <li><a href="#">经典</a></li>
-            <li><a href="#">文学</a></li>
-            <li><a href="#">互联网</a></li>
-            <li><a href="#">科普</a></li>
-            <li><a href="#">管理</a></li>
-            <li><a href="#">心理学</a></li>
-            <li><a href="#">历史</a></li>
-            <li><a href="#">小说</a></li>
+            <li><a href="category?category=首页">首页</a></li>
+            <li><a href="category?category=编程">编程</a></li>
+            <li><a href="category?category=科学">科学</a></li>
+            <li><a href="category?category=商业">商业</a></li>
+            <li><a href="category?category=心理">心理</a></li>
+            <li><a href="category?category=生活">生活</a></li>
+            <li><a href="category?category=哲学">哲学</a></li>
+            <li><a href="category?category=悬疑">悬疑</a></li>
+            <li><a href="category?category=经典">经典</a></li>
+            <li><a href="category?category=文学">文学</a></li>
+            <li><a href="category?category=互联网">互联网</a></li>
+            <li><a href="category?category=科普">科普</a></li>
+            <li><a href="category?category=管理">管理</a></li>
+            <li><a href="category?category=心理学">心理学</a></li>
         </ul>
     </nav>
 

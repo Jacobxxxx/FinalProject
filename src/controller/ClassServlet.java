@@ -22,6 +22,10 @@ public class ClassServlet extends HttpServlet {
 
         String category = request.getParameter("category");
 
+        if ("首页".equals(category)) {
+            request.getRequestDispatcher("main.jsp").forward(request, response);
+            return;
+        }
         BookService bookService = new BookService();
         List<Book> books = null;
         try {

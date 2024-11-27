@@ -32,142 +32,6 @@
   <meta charset="UTF-8">
   <title>图书推荐系统</title>
   <link rel="stylesheet" href="main.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    #center {
-      width: 70%;
-      margin: 0 auto;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: white;
-    }
-
-    h1 {
-      font-size: 24px;
-    }
-
-    .user-actions a:hover {
-      color: red;
-    }
-
-    .search-bar {
-      display: flex;
-    }
-
-    .search-bar input {
-      padding: 5px 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px 0 0 3px;
-    }
-
-    .search-bar button {
-      padding: 5px 15px;
-      border: 1px solid #ccc;
-      border-left: none;
-      border-radius: 0 3px 3px 0;
-      background-color: #eee;
-      cursor: pointer;
-    }
-
-    .user-actions {
-      display: flex;
-    }
-
-    .user-actions a {
-      margin-left: 10px;
-      text-decoration: none;
-      color: #333;
-    }
-
-    nav {
-      background-color: rgb(133, 96, 153);
-    }
-
-    nav ul {
-      flex-wrap: wrap;
-      display: flex;
-      list-style: none;
-      padding: 0px 2px;
-    }
-
-    nav li {
-      margin: 20px 20px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 10px;
-    }
-
-    li:hover {
-      background-color: red;
-      transform: scale(1.2);
-      transform-origin: left top;
-    }
-
-    nav li.active {
-      background-color: red;
-    }
-
-    .personal-recommendations {
-      margin-top: 10px;
-      background-color: rgb(255, 185, 0);
-      height: 50px;
-      line-height: 50px;
-      padding-left: 10px;
-    }
-
-    .book-list {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .book {
-      border: 2px solid rgb(241, 241, 241);
-      width: 200px;
-      margin: 20px;
-      text-align: center;
-      padding: 5px;
-    }
-
-    .book img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .pagination {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .page-link {
-      font-size: 16px;
-      margin: 0 10px;
-      cursor: pointer;
-      color: #777777;
-      text-decoration: none;
-    }
-
-    .page-link:hover {
-      text-decoration: underline;
-    }
-
-    .page-info {
-      font-size: 16px;
-      color: #333;
-    }
-  </style>
 </head>
 
 <body>
@@ -175,9 +39,12 @@
   <header>
     <h1>图书推荐系统</h1>
     <div class="search-bar">
-      <input type="text" placeholder="请输入图书名称...">
-      <button>搜索</button>
+      <form action="search" method="post">
+        <input type="text" name="keyword" placeholder="请输入图书名称..." value="${keyword}">
+        <button type="submit">搜索</button>
+      </form>
     </div>
+
     <div class="user-actions">
       <a href="login.jsp">登录</a>
       <a href="register.jsp">注册</a>
@@ -205,6 +72,7 @@
   <section>
     <h2 class="personal-recommendations">个性化推荐</h2>
     <div class="book-list">
+
       <c:forEach var="book" items="${topRatedBooks}">
         <div class="book">
           <a href="bookDetail.jsp?id=${book.id}">

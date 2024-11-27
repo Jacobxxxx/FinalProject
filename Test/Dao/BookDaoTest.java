@@ -169,4 +169,50 @@ public class BookDaoTest {
             fail("根据标签获取图书失败: " + e.getMessage());
         }
     }
+
+    @Test
+    @Order(10)
+    public void testSearchBooksByKeyword() {
+        System.out.println("测试: 根据关键词进行图书搜索");
+
+        String keyword = "余华"; // 测试关键词
+
+        try {
+            // 使用BookDao的searchBooksByKeyword方法进行搜索
+            List<Book> books = bookDao.searchBooksByKeyword(keyword);
+
+            // 断言返回结果不为空
+            assertNotNull(books, "搜索结果不应为空");
+            assertTrue(books.size() > 0, "搜索结果应包含至少1本图书");
+
+            // 输出搜索结果
+            books.forEach(book -> System.out.println(book));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            fail("根据关键词搜索图书失败: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @Order(11)
+    public void testGetSearchResultCount() {
+        System.out.println("测试: 获取搜索结果的总记录数");
+
+        String keyword = "余华"; // 测试关键词
+
+        try {
+            // 使用BookDao的getSearchResultCount方法获取图书总数
+            long count = bookDao.getSearchResultCount(keyword);
+
+            // 断言返回的记录数应为非负数
+            assertTrue(count >= 0, "搜索结果总数应为非负数");
+            System.out.println("搜索结果总数: " + count);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            fail("获取搜索结果总记录数失败: " + e.getMessage());
+        }
+    }
+
 }

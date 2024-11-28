@@ -1,12 +1,22 @@
 package controller;
 
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+import utils.DataSourceUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    private QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -15,8 +25,20 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // 模拟用户验证逻辑（实际应查询数据库）
-        if ("admin".equals(username) && "123456".equals(password)) {
+        boolean isValidUser = false;
+
+        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+        try {
+            Object result = runner.query(sql, new ScalarHandler<>(), username, password);
+            if (result != null) {
+                // 如果查询结果不为空，则表示用户存在
+                isValidUser = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (isValidUser) {
             // 登录成功，将用户信息保存到 session
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
@@ -29,10 +51,11 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
-
+        
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 如果尝试GET方法，重定向到登录页面
         response.sendRedirect("login.jsp");
     }
 }
+

@@ -183,7 +183,7 @@
         <div class="book-list">
           <c:forEach var="book" items="${books}">
             <div class="book">
-              <a href="bookDetail.jsp?id=${book.id}">
+              <a href="bookDetail?id=${book.id}">
                 <img src="imageProxy?url=${book.cover_image_url}" alt="${book.book_name}" onerror="this.src='default-image.jpg';">
               </a>
               <h3>${book.book_name}</h3>

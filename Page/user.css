@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#center {
+  width: 70%;
+  /* margin: 0% 17.5% 0% 17.5% ; */
+  /* 外边距, 上 右 下 左 */
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+/* 悬停于登录或注册字样时,自动变成红色 */
+.user-actions a:hover {
+  color: red;
+}
+
+.search-bar {
+  display: flex;
+}
+
+.search-bar input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px 0 0 3px;
+
+}
+
+.search-bar button {
+  height: 38px;
+
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+
+.user-actions {
+  display: flex;
+}
+
+.user-actions a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+nav {
+  background-color: rgb(133, 96, 153);
+}
+
+/* 将无序列表设置为flex布局,去除默认的列表样式,并设置左右内边距 */
+nav ul {
+  flex-wrap: wrap;
+  display: flex;
+  list-style: none;
+  padding: 0px 2px;
+}
+
+/* 设置列表项的左右外边距 */
+nav li {
+  margin: 20px 20px;
+}
+
+/* 设置链接的颜色为白色,去除下划线,并设置内边距 */
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+/* 鼠标悬停时,背景色变为红色 */
+li:hover {
+  background-color: red;
+  transform: scale(1.2);
+  transform-origin: left top;
+}
+
+nav li.active {
+  background-color: red;
+}
+
+.personal-recommendations {
+  margin-top: 10px;
+  background-color: rgb(255, 185, 0);
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.form-container {
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  margin: 50px auto;
+}
+
+
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.gender {
+  margin-right: 58%;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type="radio"] {
+
+  margin-right: 5px;
+}
+
+input[type="submit"] {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}

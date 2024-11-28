@@ -1,22 +1,20 @@
 package controller;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
+
 import utils.DataSourceUtils;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+    private QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());  // 正确初始化 QueryRunner
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,36 +24,36 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         boolean isValidUser = false;
+        String userId = null;
 
-        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+// 更新后的代码，使用 ScalarHandler 获取 user_id
+        String sql = "SELECT user_id FROM users WHERE username = ? AND password = ?";
+
 
         try {
-            Object result = runner.query(sql, new ScalarHandler<>(), username, password);
-            if (result != null) {
-                // 如果查询结果不为空，则表示用户存在
-                isValidUser = true;
-            }
+            // 使用 ScalarHandler 获取单一值（user_id）
+            userId = runner.query(sql, new ScalarHandler<String>(), username, password);
+            System.out.println(userId);  // 检查返回的 userId 是否为 null
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (isValidUser) {
-            // 登录成功，将用户信息保存到 session
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);
 
-            // 重定向到主页面
-            response.sendRedirect("main.jsp");
+        if (userId != null) {
+            // 如果 userId 不为 null，表示登录成功
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", userId);  // 将 userId 存储到 session 中
+            response.sendRedirect("main.jsp");  // 重定向到主页面
         } else {
-            // 登录失败，返回登录页面并显示错误信息
+            // 如果 userId 为 null，表示登录失败
             request.setAttribute("errorMessage", "用户名或密码错误，请重新登录！");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);  // 返回登录页面
         }
+
     }
-        
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 如果尝试GET方法，重定向到登录页面
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("viewer.jsp");
     }
 }
-

@@ -52,7 +52,7 @@
   </header>
   <nav>
     <ul>
-      <li><a href="category?category=首页">首页</a></li>
+      <li><a href="main.jsp">首页</a></li>
       <li><a href="category?category=编程">编程</a></li>
       <li><a href="category?category=科学">科学</a></li>
       <li><a href="category?category=商业">商业</a></li>

@@ -215,4 +215,51 @@ public class BookDaoTest {
         }
     }
 
+    @Test
+    @Order(12)
+    public void testGetUserRatingMatrix() {
+        System.out.println("测试: 获取用户评分矩阵");
+        try {
+            List<Object[]> userRatingMatrix = bookDao.getUserRatingMatrix();
+            assertNotNull(userRatingMatrix, "用户评分矩阵不应为空");
+            System.out.println("用户评分矩阵记录数: " + userRatingMatrix.size());
+            for (Object[] row : userRatingMatrix) {
+                System.out.println("User ID: " + row[0] + ", Book ID: " + row[1] + ", Rating: " + row[2]);
+            }
+        } catch (SQLException e) {
+            fail("获取用户评分矩阵失败: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @Order(13)
+    public void testGetUserBehaviorMatrix() {
+        System.out.println("测试: 获取用户行为矩阵");
+        try {
+            List<Object[]> userBehaviorMatrix = bookDao.getUserBehaviorMatrix();
+            assertNotNull(userBehaviorMatrix, "用户行为矩阵不应为空");
+            System.out.println("用户行为矩阵记录数: " + userBehaviorMatrix.size());
+            for (Object[] row : userBehaviorMatrix) {
+                System.out.println("User ID: " + row[0] + ", Book ID: " + row[1] + ", Behavior Score: " + row[2]);
+            }
+        } catch (SQLException e) {
+            fail("获取用户行为矩阵失败: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @Order(14)
+    public void testGetFinalUserRatingMatrix() {
+        System.out.println("测试: 获取最终评分矩阵");
+        try {
+            List<Object[]> finalUserRatingMatrix = bookDao.getFinalUserRatingMatrix();
+            assertNotNull(finalUserRatingMatrix, "最终评分矩阵不应为空");
+            System.out.println("最终评分矩阵记录数: " + finalUserRatingMatrix.size());
+            for (Object[] row : finalUserRatingMatrix) {
+                System.out.println("User ID: " + row[0] + ", Book ID: " + row[1] + ", Final Score: " + row[2]);
+            }
+        } catch (SQLException e) {
+            fail("获取最终评分矩阵失败: " + e.getMessage());
+        }
+    }
 }

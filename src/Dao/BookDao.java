@@ -1,15 +1,17 @@
 package Dao;
-
 import model.Book;
 import utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+
 
 public class BookDao {
 
@@ -141,7 +143,6 @@ public class BookDao {
         }
     }
 
-
     // 根据关键词进行搜索（书名、作者模糊搜索）
     public List<Book> searchBooksByKeyword(String keyword) throws SQLException {
         String sql = "SELECT * FROM books WHERE book_name LIKE ? OR author LIKE ? ";
@@ -164,6 +165,85 @@ public class BookDao {
             DataSourceUtils.closeConnection(conn);
         }
     }
+
+    // 获取用户评分矩阵：返回评分矩阵数据，计算每个用户对每本书的评分
+    public List<Object[]> getUserRatingMatrix() throws SQLException {
+        String sql = "SELECT user_id, book_id, rating FROM user_ratings";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            return runner.query(conn, sql, resultSet -> {
+                List<Object[]> matrix = new ArrayList<>();
+                while (resultSet.next()) {
+                    String userId = resultSet.getString("user_id");
+                    int bookId = resultSet.getInt("book_id");
+                    double rating = resultSet.getDouble("rating");
+                    matrix.add(new Object[]{userId, bookId, rating});
+                }
+                return matrix;
+            });
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
+
+    // 获取用户行为矩阵：根据用户行为数据（浏览和收藏）更新评分
+    public List<Object[]> getUserBehaviorMatrix() throws SQLException {
+        String sql = "SELECT ua.user_id, ua.book_id, ua.browse, ua.favorite FROM user_actions ua";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            return runner.query(conn, sql, resultSet -> {
+                List<Object[]> matrix = new ArrayList<>();
+                while (resultSet.next()) {
+                    String userId = resultSet.getString("user_id");
+                    int bookId = resultSet.getInt("book_id");
+                    int browse = resultSet.getInt("browse");
+                    int favorite = resultSet.getInt("favorite");
+
+                    // 根据行为生成评分
+                    double behaviorScore = browse * 0.05 + favorite * 0.25;
+                    matrix.add(new Object[]{userId, bookId, behaviorScore});
+                }
+                return matrix;
+            });
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
+
+    // 获取最终评分矩阵：结合评分和行为矩阵
+    public List<Object[]> getFinalUserRatingMatrix() throws SQLException {
+        List<Object[]> ratingMatrix = getUserRatingMatrix();
+        List<Object[]> behaviorMatrix = getUserBehaviorMatrix();
+
+        // 合并评分和行为矩阵的评分
+        Map<String, Double> finalMatrix = new HashMap<>();
+        for (Object[] behaviorRow : behaviorMatrix) {
+            String userId = (String) behaviorRow[0];
+            int bookId = (int) behaviorRow[1];
+            double behaviorScore = (double) behaviorRow[2];
+
+            finalMatrix.put(userId + "_" + bookId, behaviorScore);
+        }
+
+        for (Object[] ratingRow : ratingMatrix) {
+            String userId = (String) ratingRow[0];
+            int bookId = (int) ratingRow[1];
+            double rating = (double) ratingRow[2];
+
+            String key = userId + "_" + bookId;
+            double finalScore = rating * 0.7 + finalMatrix.getOrDefault(key, 0.0);
+            finalMatrix.put(key, finalScore);
+        }
+
+        List<Object[]> finalMatrixList = new ArrayList<>();
+        for (Map.Entry<String, Double> entry : finalMatrix.entrySet()) {
+            String[] parts = entry.getKey().split("_");
+            String userId = parts[0];
+            int bookId = Integer.parseInt(parts[1]);
+            double finalScore = entry.getValue();
+            finalMatrixList.add(new Object[]{userId, bookId, finalScore});
+        }
+
+        return finalMatrixList;
+    }
 }
-
-

@@ -146,4 +146,19 @@ public class BookService {
     public long getSearchResultCount(String keyword) throws SQLException {
         return bookDao.getSearchResultCount(keyword);
     }
+
+    // 获取用户评分矩阵：返回评分矩阵数据，计算每个用户对每本书的评分
+    public List<Object[]> getUserRatingMatrix() throws SQLException {
+        return bookDao.getUserRatingMatrix();
+    }
+
+    // 获取用户行为矩阵：根据用户行为数据（浏览和收藏）更新评分
+    public List<Object[]> getUserBehaviorMatrix() throws SQLException {
+        return bookDao.getUserBehaviorMatrix();
+    }
+
+    // 获取最终评分矩阵：结合评分和行为矩阵
+    public List<Object[]> getFinalUserRatingMatrix() throws SQLException {
+        return bookDao.getFinalUserRatingMatrix();
+    }
 }

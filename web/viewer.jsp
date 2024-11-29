@@ -65,7 +65,6 @@
       <li><a href="login.jsp">互联网</a></li>
       <li><a href="login.jsp">科普</a></li>
       <li><a href="login.jsp">管理</a></li>
-      <li><a href="login.jsp">心理</a></li>
     </ul>
   </nav>
 

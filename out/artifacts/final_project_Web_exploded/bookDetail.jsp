@@ -19,13 +19,13 @@ prefix="c" %>
             <button>搜索</button>
           </div>
           <div class="user-actions">
-            <a href="login.jsp">登录</a>
-            <a href="register.jsp">注册</a>
+            <a href="profile">个人信息</a>
+            <a href="favorites">收藏列表</a>
           </div>
         </header>
         <nav>
           <ul>
-            <li><a href="category?category=首页">首页</a></li>
+            <li><a href="main.jsp">首页</a></li>
             <li><a href="category?category=编程">编程</a></li>
             <li><a href="category?category=科学">科学</a></li>
             <li><a href="category?category=商业">商业</a></li>
@@ -38,7 +38,7 @@ prefix="c" %>
             <li><a href="category?category=互联网">互联网</a></li>
             <li><a href="category?category=科普">科普</a></li>
             <li><a href="category?category=管理">管理</a></li>
-            <li><a href="category?category=心理">心理</a></li>
+            <li><a href="category?category=心理学">心理学</a></li>
           </ul>
         </nav>
         <section class="details">

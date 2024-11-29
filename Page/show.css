@@ -1,0 +1,183 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#center {
+    width: 70%;
+    /* margin: 0% 17.5% 0% 17.5% ; */
+    /* 外边距, 上 右 下 左 */
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+/* 悬停于登录或注册字样时,自动变成红色 */
+.user-actions a:hover {
+    color: red;
+}
+
+.search-bar {
+    display: flex;
+}
+
+.search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px 0 0 3px;
+}
+
+.search-bar button {
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.user-actions {
+    display: flex;
+}
+
+.user-actions a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+nav {
+    background-color: rgb(133, 96, 153);
+}
+
+/* 将无序列表设置为flex布局,去除默认的列表样式,并设置左右内边距 */
+nav ul {
+    flex-wrap: wrap;
+    display: flex;
+    list-style: none;
+    padding: 0px 2px;
+}
+
+/* 设置列表项的左右外边距 */
+nav li {
+    margin: 20px 20px;
+}
+
+/* 设置链接的颜色为白色,去除下划线,并设置内边距 */
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+/* 鼠标悬停时,背景色变为红色 */
+li:hover {
+    background-color: red;
+    transform: scale(1.2);
+    transform-origin: left top;
+}
+
+nav li.active {
+    background-color: red;
+}
+
+.details {
+    margin-top: 10px;
+    background-color: rgb(255, 185, 0);
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.book-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.book-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.book-details {
+    flex: 2;
+    padding: 20px;
+    color: #333;
+}
+
+.book-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.book-details p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.star-rating {
+    font-size: 18px;
+    display: inline-flex;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.star-rating .star.selected {
+    color: orange;
+}
+
+.star-rating .star:hover .star-rating .star:hover~.star {
+    color: orange;
+}
+
+.star-rating .star:hover~.star {
+    color: #ccc;
+}
+
+.book-details strong {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .book-image,
+    .book-details {
+        flex: 1 1 100%;
+    }
+}

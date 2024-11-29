@@ -27,7 +27,6 @@ public class BookDetailServlet extends HttpServlet {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
     
     request.setAttribute("book", book);
     request.setAttribute("book_name", book.getBook_name());

@@ -49,18 +49,30 @@ prefix="c" %>
             <img src="imageProxy?url=${cover_image_url}" alt="${book_name}" />
           </div>
           <div class="book-details">
+            <div class="favorite-button-container">
+              <button
+                type="button"
+                class="favorite-button"
+                onclick="addToFavorites()"
+              >
+                收藏
+              </button>
+            </div>
             <h2>${book_name}</h2>
             <p><strong>图书类型：</strong>${tag}</p>
             <p><strong>出版时间：</strong>${publish_year}</p>
             <p>
               <strong>图书评分：</strong>
-              <span class="star-rating">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
-              </span>
+              <input
+                type="number"
+                id="user-rating"
+                name="user-rating"
+                min="0"
+                max="10"
+                step="0.1"
+                value=""
+              />
+              <button type="button" onclick="submitRating()">提交评分</button>
             </p>
             <p><strong>出版社：</strong>${publisher}</p>
             <p><strong>官方评分：</strong>${rating}/10</p>
@@ -76,7 +88,22 @@ prefix="c" %>
             >
               ${description}
             </p>
-            <script src="show-star.js"></script>
+            <script>
+              function submitRating() {
+                var rating = document.getElementById("user-rating").value;
+                if (rating < 0 || rating > 10) {
+                  alert("评分必须在0到10之间");
+                  return;
+                }
+                // 这里可以添加代码将评分提交到服务器
+                alert("您提交的评分是：" + rating);
+              }
+
+              function addToFavorites() {
+                // 这里可以添加代码将图书添加到收藏夹
+                alert("图书已添加到收藏夹！");
+              }
+            </script>
           </div>
         </div>
       </div>

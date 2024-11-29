@@ -117,4 +117,15 @@ public class UserActionDao {
             DataSourceUtils.closeConnection(conn);
         }
     }
+
+    public List<UserAction> getUserActionsByUserIdAndFavorite(String userId, int favorite) throws SQLException {
+        String sql = "SELECT * FROM user_actions WHERE user_id = ? AND favorite = ?";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            return runner.query(conn, sql, new BeanListHandler<>(UserAction.class), userId, favorite);
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
+
 }

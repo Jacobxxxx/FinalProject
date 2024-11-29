@@ -39,7 +39,6 @@ h1 {
 }
 
 .search-bar button {
-  height: 38px;
   padding: 5px 15px;
   border: 1px solid #ccc;
   border-left: none;
@@ -93,7 +92,7 @@ nav li.active {
   background-color: red;
 }
 
-.personal-recommendations {
+.record {
   margin-top: 10px;
   background-color: rgb(255, 185, 0);
   height: 50px;
@@ -105,83 +104,19 @@ h2 {
   margin-bottom: 5px;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+/* 表格 */
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.form-container {
-  text-align: center;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  width: 70%;
-  margin: 50px auto;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-/* Gender specific style */
-.gender {
-  margin-right: 58%;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="password"] {
-  width: 70%;
-  padding: 10px;
-  margin-bottom: 15px;
+th,
+td {
   border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 14px;
+  padding: 8px;
+  text-align: left;
 }
 
-/* Password specific style */
-input[type="password"] {
-  background-color: #fff;
-  color: #333;
-  transition: border-color 0.3s ease;
-}
-
-/* Mouse hover and focus effects */
-input[type="password"]:focus {
-  border-color: #66afe9;
-  outline: none;
-  box-shadow: 0 0 8px rgba(0, 122, 255, 0.5);
-}
-
-input[type="radio"] {
-  margin-right: 5px;
-}
-
-input[type="submit"] {
-  background-color: #007BFF;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-input[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-.error {
-  border-color: #e74c3c;
-  background-color: #f9d0d3;
-}
-
-/* To handle the error input styles */
-input[type="text"].error,
-input[type="email"].error,
-input[type="password"].error {
-  border-color: #e74c3c;
-  background-color: #f9d0d3;
+th {
+  background-color: #f2f2f2;
 }

@@ -55,8 +55,8 @@
     </div>
 
     <div class="user-actions">
-      <a href="login.jsp">登录</a>
-      <a href="register.jsp">注册</a>
+      <a href="profile">个人信息</a>
+      <a href="favorites">收藏列表</a>
     </div>
   </header>
 
@@ -75,7 +75,6 @@
       <li><a href="category?category=互联网">互联网</a></li>
       <li><a href="category?category=科普">科普</a></li>
       <li><a href="category?category=管理">管理</a></li>
-      <li><a href="category?category=心理">心理</a></li>
     </ul>
   </nav>
 

@@ -58,4 +58,9 @@ public class UserActionService {
     public UserAction getUserActionByUserIdAndBookId(String userId, int bookId) throws SQLException {
         return userActionDao.getUserActionByUserIdAndBookId(userId, bookId);
     }
+
+    // 获取用户的收藏列表
+    public List<UserAction> getUserFavorites(String userId) throws SQLException {
+        return userActionDao.getUserActionsByUserIdAndFavorite(userId, 1);  // 1 表示收藏
+    }
 }

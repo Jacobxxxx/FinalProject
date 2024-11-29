@@ -99,8 +99,19 @@ prefix="c" %>
               }
 
               function addToFavorites() {
-                // 这里可以添加代码将图书添加到收藏夹
-                alert("图书已添加到收藏夹！");
+                var bookId = "${book.id}";
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "bookDetail", true);
+                xhr.setRequestHeader(
+                  "Content-Type",
+                  "application/x-www-form-urlencoded"
+                );
+                xhr.onreadystatechange = function () {
+                  if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert("图书已添加到收藏夹！");
+                  }
+                };
+                xhr.send("action=addFavorite&bookId=" + bookId);
               }
             </script>
           </div>

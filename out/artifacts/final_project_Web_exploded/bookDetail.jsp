@@ -90,7 +90,6 @@ prefix="c" %>
             <li><a href="category?category=互联网">互联网</a></li>
             <li><a href="category?category=科普">科普</a></li>
             <li><a href="category?category=管理">管理</a></li>
-            <li><a href="category?category=心理学">心理学</a></li>
           </ul>
         </nav>
         <section class="details">

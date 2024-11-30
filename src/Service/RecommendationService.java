@@ -29,8 +29,16 @@ public class RecommendationService {
 
     // 4. 计算用户相似度：使用余弦相似度
     public double calculateSimilarity(String user1, String user2, Map<String, Map<Integer, Double>> userRatings) {
-        Set<Integer> commonBooks = new HashSet<>(userRatings.get(user1).keySet());
-        commonBooks.retainAll(userRatings.get(user2).keySet());
+        // 检查 user1 和 user2 是否有评分数据
+        Map<Integer, Double> ratingsUser1 = userRatings.get(user1);
+        Map<Integer, Double> ratingsUser2 = userRatings.get(user2);
+
+        if (ratingsUser1 == null || ratingsUser2 == null) {
+            return 0; // 如果任意一个用户没有评分数据，则返回相似度 0
+        }
+
+        Set<Integer> commonBooks = new HashSet<>(ratingsUser1.keySet());
+        commonBooks.retainAll(ratingsUser2.keySet());
 
         if (commonBooks.isEmpty()) {
             return 0; // 无共同评分图书，返回相似度为0
@@ -41,8 +49,8 @@ public class RecommendationService {
         double normUser2 = 0;
 
         for (int bookId : commonBooks) {
-            double ratingUser1 = userRatings.get(user1).get(bookId);
-            double ratingUser2 = userRatings.get(user2).get(bookId);
+            double ratingUser1 = ratingsUser1.get(bookId);
+            double ratingUser2 = ratingsUser2.get(bookId);
 
             dotProduct += ratingUser1 * ratingUser2;
             normUser1 += ratingUser1 * ratingUser1;
@@ -51,6 +59,7 @@ public class RecommendationService {
 
         return dotProduct / (Math.sqrt(normUser1) * Math.sqrt(normUser2)); // 余弦相似度公式
     }
+
 
     // 5. 为用户生成推荐图书
     public List<Book> generateRecommendations(String targetUserId) throws SQLException {
@@ -76,7 +85,7 @@ public class RecommendationService {
             }
         }
 
-        // 根据相似度选择最相似的用户（可以调整相似度的阈值和数量）
+        // 根据相似度选择最相似的用户（似度的阈值和数量）
         List<String> mostSimilarUsers = getMostSimilarUsers(userSimilarities, targetUserId, 10);
 
         // 为目标用户生成推荐
@@ -123,6 +132,12 @@ public class RecommendationService {
         List<Map.Entry<String, Double>> sortedSimilarities = new ArrayList<>(userSimilarities.entrySet());
         sortedSimilarities.sort((entry1, entry2) -> Double.compare(entry2.getValue(), entry1.getValue()));
 
+        // 如果所有用户与目标用户的相似度都为 0，返回一个空列表或其他默认值
+        if (sortedSimilarities.isEmpty() || sortedSimilarities.get(0).getValue() == 0) {
+            System.out.println("没有找到与目标用户相似的用户，使用热点推荐或默认推荐");
+            return new ArrayList<>(); // 可以选择返回一个空列表或默认的用户（如所有用户）
+        }
+
         // 获取最相似的 N 个用户
         List<String> mostSimilarUsers = new ArrayList<>();
         for (int i = 0; i < Math.min(n, sortedSimilarities.size()); i++) {
@@ -131,4 +146,5 @@ public class RecommendationService {
 
         return mostSimilarUsers;
     }
+
 }

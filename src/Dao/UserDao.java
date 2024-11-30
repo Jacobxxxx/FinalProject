@@ -105,4 +105,32 @@ public class UserDao {
             DataSourceUtils.closeConnection(conn);
         }
     }
+
+    // 获取最大用户ID
+    public Long getMaxUserId() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM users"; // 获取用户总数
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            // 获取用户总数
+            Long userCount = runner.query(conn, sql, new ScalarHandler<Long>());
+            return (userCount == null) ? 0L : userCount; // 如果没有结果，返回 0L
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
+
+
+
+    // 根据用户名获取用户
+    public User getUserByUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            return runner.query(conn, sql, new BeanHandler<>(User.class), username);
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
+
+
 }

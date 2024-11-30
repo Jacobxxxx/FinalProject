@@ -22,6 +22,11 @@
   // 获取用户的推荐图书
   List<Book> recommendedBooks = recommendationService.generateRecommendations(userId);
 
+  // 如果推荐列表为空，则使用热点推荐（评分最高的14本书）
+  if (recommendedBooks == null || recommendedBooks.isEmpty()) {
+    recommendedBooks = bookService.getTopBooksByRating(14);  // 获取评分最高的14本书
+  }
+
   // 获取分页图书列表
   int pageSize = 14;
   int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;

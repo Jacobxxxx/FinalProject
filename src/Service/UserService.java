@@ -52,4 +52,16 @@ public class UserService {
     public long getUserCount() throws SQLException {
         return userDao.getUserCount();
     }
+
+    // 获取最大用户ID
+    public Long getMaxUserId() throws SQLException {
+        return userDao.getMaxUserId();  // 获取当前最大ID
+    }
+
+    // 根据用户名获取用户
+    public User getUserByUsername(String username) throws SQLException {
+        return userDao.getUserByUsername(username);  // 根据用户名获取用户
+    }
+
+
 }

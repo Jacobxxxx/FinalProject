@@ -13,32 +13,43 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet("/bookDetail")
 public class BookDetailServlet extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(BookDetailServlet.class.getName());
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        handleRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        handleRequest(request, response);
+    }
+
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
+        String action = request.getParameter("action");
         String bookId = request.getParameter("id");
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
-        String action = request.getParameter("action");
 
-        BookService bookService = new BookService();
+        // if (bookId == null || bookId.isEmpty()) {
+        //     response.getWriter().write("error: bookId is null or empty");
+        //     return;
+        // }
+
         UserActionService userActionService = new UserActionService();
-        Book book = null;
-        try {
-            book = bookService.getBookById(Integer.parseInt(bookId));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        //收藏判断
+        //加入收藏
         if ("addFavorite".equals(action) && userId != null && bookId != null) {
             try {
                 UserAction userAction = userActionService.getUserActionByUserIdAndBookId(userId, Integer.parseInt(bookId));
+                LOGGER.log(Level.INFO, "User ID: {0}", userId);
                 if (userAction == null) {
                     userAction = new UserAction();
                     userAction.setUser_id(userId);
@@ -47,6 +58,7 @@ public class BookDetailServlet extends HttpServlet {
                     userAction.setFavorite(1);
                     userActionService.addUserAction(userAction);
                 } else {
+                    LOGGER.log(Level.INFO, "UserAction not found, creating new one.");
                     userAction.setFavorite(1);
                     userActionService.updateUserAction(userAction);
                 }
@@ -56,8 +68,21 @@ public class BookDetailServlet extends HttpServlet {
                 e.printStackTrace();
                 response.getWriter().write("error");
                 return;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
+
+        BookService bookService = new BookService();
+
+        Book book = null;
+        try {
+            book = bookService.getBookById(Integer.parseInt(bookId));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        
 
         //用户浏览记录
         if (userId != null && bookId != null) {
@@ -93,4 +118,5 @@ public class BookDetailServlet extends HttpServlet {
 
         request.getRequestDispatcher("/bookDetail.jsp").forward(request, response);
     }
+
 }

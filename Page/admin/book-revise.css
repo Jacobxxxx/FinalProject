@@ -1,0 +1,162 @@
+/* 整体布局和样式 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: purple;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.admin-info a {
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+
+
+.sidebar {
+  background-color: lightblue;
+  width: 200px;
+  height: 100vh;
+  float: left;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.sidebar ul li a:hover {
+  background-color: skyblue;
+}
+
+.main-content {
+  margin-left: 200px;
+  padding: 20px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.back-button {
+  padding: 5px 30px;
+  background-color: rgb(244, 244, 244);
+  color: rgb(33, 39, 47);
+  border: none;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+input[type="file"] {
+  margin-top: 5px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input, .form-group select, .form-group textarea, .form-group{
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#file-status {
+  font-size: 12px;
+  color: gray;
+}
+
+/* 图书添加或修改黄栏 */
+.book-revise {
+  margin-top: 10px;
+  background-color: rgb(255, 185, 0);
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+
+}
+
+/* 侧边栏的下拉菜单栏 */
+
+/* 1.用户列表管理 */
+#user-submenu {
+  display: none;
+}
+
+#user-list:hover #user-submenu,
+#user-list.active #user-submenu {
+  display: block;
+  background-color: white;
+}
+
+
+/* 2.图书类型管理 */
+#book-type-submenu {
+  display: none;
+}
+
+#book-type-management:hover #book-type-submenu,
+#book-type-management.active #book-type-submenu {
+  display: block;
+  background-color: white;
+}
+
+/* 3.图书管理 */
+#book-submenu {
+  display: none;
+}
+
+#book-management:hover #book-submenu,
+#book-management.active #book-submenu {
+  display: block;
+  background-color: white;
+}
+
+/* 4.评分列表 */
+#score-submenu {
+  display: none;
+}
+
+#score-management:hover #score-submenu,
+#score-management.active #score-submenu {
+  display: block;
+  background-color: white;
+}

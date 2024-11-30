@@ -1,0 +1,138 @@
+<!DOCTYPE html>   
+<html lang="zh-CN">   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书推荐系统后台管理</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f3f3f3;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .sidebar ul li:hover, .sidebar ul li.active {
+            background-color: #8e44ad;
+            color: white;
+        }
+        .main {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .main h2 {
+            background-color: #f39c12;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .form {
+            margin-top: 20px;
+        }
+        .form label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+        .form input[type="text"],
+        .form textarea,
+        .form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form textarea {
+            height: 100px;
+        }
+        .form input[type="file"] {
+            padding: 5px;
+        }
+        .form .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form button.submit {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .form button.reset {
+            background-color: #e74c3c;
+            color: white;
+        }
+    </style>   
+</head>   
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h3>图书推荐系统</h3>
+            <ul>
+                <li>数据统计</li>
+                <li>用户管理</li>
+                <li>图书类别管理</li>
+                <li>图书管理</li>
+                <li class="active">图书发布</li>
+                <li>评分管理</li>
+                <li>系统设置</li>
+            </ul>
+        </div>
+        <div class="main">
+            <h2>图书添加或修改</h2>
+            <div class="form">
+                <label for="book-name">图书名称：</label>
+                <input type="text" id="book-name" placeholder="请输入图书名称">
+
+                <label for="book-type">图书类型：</label>
+                <select id="book-type">
+                    <option value="编程">编程</option>
+                    <option value="小说">小说</option>
+                    <option value="科技">科技</option>
+                </select>
+
+                <label for="book-image">图书图片：</label>
+                <input type="file" id="book-image">
+
+                <label for="book-desc">图书简介：</label>
+                <textarea id="book-desc" placeholder="请输入图书简介"></textarea>
+
+                <div class="buttons">
+                    <button class="submit">提交</button>
+                    <button class="reset">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>   
+</body>   
+</html>

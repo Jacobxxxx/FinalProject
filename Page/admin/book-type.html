@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>图书推荐系统后台管理员</title>
+  <link rel="stylesheet" href="./book-type.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1>图书推荐系统后台管理员</h1>
+    <div class="admin-info">
+      <span>管理员: admin</span>
+      <a href="#">退出</a>
+      <a href="#">前台网站首页</a>
+    </div>
+  </div>
+
+
+
+  <div class="sidebar">
+    <ul>
+      <li><a href="./index.html">数据统计</a></li>
+
+      <li id="user-list">
+        <a href="#">用户管理</a>
+        <ul id="user-submenu">
+          <li><a href="./user-list.html">用户列表</a></li>
+        </ul>
+      </li>
+
+      <li id="book-type-management">
+        <a href="#">图书类型管理</a>
+        <ul id="book-type-submenu">
+          <li><a href="./book-type.html">图书类型列表</a></li>
+        </ul>
+      </li>
+
+      <li id="book-management">
+        <a href="#">图书管理</a>
+        <ul id="book-submenu">
+          <li><a href="./book-list.html">图书列表</a></li>
+        </ul>
+      </li>
+
+      <li id="score-management">
+        <a href="#">评分管理</a>
+        <ul id="score-submenu">
+          <li><a href="./score-list.html">评分列表</a></li>
+        </ul>
+      </li>
+
+      <li><a href="#">系统设置</a></li>
+    </ul>
+
+  </div>
+
+
+  <div class="main-content">
+    <h2 class="book-type">图书类型列表</h2>
+
+    <div class="search-bar">
+      <button>添加类型</button>&nbsp;&nbsp;&nbsp;
+      <input type="text" placeholder="请输入图书名称...">
+      <button>搜索</button>
+    </div>
+
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="select-all"></th>
+          <th style="background-color: rgb(255, 229, 229);">序号</th>
+          <th style="background-color: rgb(255, 229, 229);">图书类型名称</th>
+          <th style="background-color: rgb(255, 229, 229);text-align: center;">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>1</td>
+          <td>编程</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>2</td>
+          <td>科学</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>3</td>
+          <td>商业</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>4</td>
+          <td>心理</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>5</td>
+          <td>生活</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>6</td>
+          <td>哲学</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>7</td>
+          <td>悬疑</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>8</td>
+          <td>经典</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>9</td>
+          <td>文学</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>10</td>
+          <td>互联网</td>
+          <td id="operate">
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <p>共15条数据 第1/2页 <a href="#">下一页</a> <a href="#">尾页</a></p>
+    </div>
+  </div>
+
+
+</body>
+<script src="./book-type.js"></script>
+
+</html>

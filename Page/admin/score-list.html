@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>图书推荐系统后台管理员</title>
+  <link rel="stylesheet" href="score-list.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1>图书推荐系统后台管理员</h1>
+    <div class="admin-info">
+      <span>管理员: admin</span>
+      <a href="#">退出</a>
+      <a href="#">前台网站首页</a>
+    </div>
+  </div>
+
+
+
+  <div class="sidebar">
+    <ul>
+      <li><a href="./index.html">数据统计</a></li>
+
+      <li id="user-list">
+        <a href="#">用户管理</a>
+        <ul id="user-submenu">
+          <li><a href="./user-list.html">用户列表</a></li>
+        </ul>
+      </li>
+
+      <li id="book-type-management">
+        <a href="#">图书类型管理</a>
+        <ul id="book-type-submenu">
+          <li><a href="./book-type.html">图书类型列表</a></li>
+        </ul>
+      </li>
+
+      <li id="book-management">
+        <a href="#">图书管理</a>
+        <ul id="book-submenu">
+          <li><a href="./book-list.html">图书列表</a></li>
+        </ul>
+      </li>
+
+      <li id="score-management">
+        <a href="#">评分管理</a>
+        <ul id="score-submenu">
+          <li><a href="./score-list.html">评分列表</a></li>
+        </ul>
+      </li>
+
+      <li><a href="#">系统设置</a></li>
+    </ul>
+
+  </div>
+
+  <div class="main-content">
+    <h2 class="score-list">评分列表</h2>
+
+    <div class="search-bar">
+      <input type="text" placeholder="请输入用户名称...">
+      <input type="text" placeholder="请输入图书名称...">
+      <button>搜索</button>
+    </div>
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="select-all"></th>
+          <th style="background-color: rgb(255, 229, 229);">序号</th>
+          <th style="background-color: rgb(255, 229, 229);">用户名称</th>
+          <th style="background-color: rgb(255, 229, 229);">图书名称</th>
+          <th style="background-color: rgb(255, 229, 229);">评分时间</th>
+          <th style="background-color: rgb(255, 229, 229);">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>1</td>
+          <td>user1</td>
+          <td><a href="#">掌控习惯</a></td>
+          <td>2021-12-05 23:19:56</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>2</td>
+          <td>user1</td>
+          <td><a href="#">参与感</a></td>
+          <td>2021-12-05 23:19:36</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>3</td>
+          <td>user1</td>
+          <td><a href="#">Effective C++</a></td>
+          <td>2021-09-07 23:14:37</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>4</td>
+          <td>user20</td>
+          <td><a href="#">亲密关系（第5版）</a></td>
+          <td>2021-09-07 23:09:39</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>5</td>
+          <td>user11</td>
+          <td><a href="#">老人与海</a></td>
+          <td>2021-09-07 23:09:39</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>6</td>
+          <td>user14</td>
+          <td><a href="#">活出生命的意义</a></td>
+          <td>2021-09-07 23:09:39</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>7</td>
+          <td>user18</td>
+          <td><a href="#">三体</a></td>
+          <td>2021-09-07 23:09:39</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>8</td>
+          <td>user20</td>
+          <td><a href="#">一往无前</a></td>
+          <td>2021-09-07 23:09:39</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>9</td>
+          <td>user16</td>
+          <td><a href="#">月亮与六便士</a></td>
+          <td>2021-09-07 23:09:39</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>10</td>
+          <td>user18</td>
+          <td><a href="#">高效能人士的七个习惯</a></td>
+          <td>2021-09-07 23:09:39</td>
+          <td><a href="#">删除</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <p>共303条数据 第1/31页 <a href="#">下一页</a> <a href="#">尾页</a></p>
+    </div>
+
+  </div>
+
+
+
+
+
+
+</body>
+<script src="./score-list.js"></script>
+
+</html>

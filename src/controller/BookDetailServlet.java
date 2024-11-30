@@ -2,8 +2,10 @@ package controller;
 
 import Service.BookService;
 import Service.UserActionService;
+import Service.UserRatingService;
 import model.Book;
 import model.UserAction;
+import model.UserRating;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +20,6 @@ import java.util.logging.Logger;
 
 @WebServlet("/bookDetail")
 public class BookDetailServlet extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(BookDetailServlet.class.getName());
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         handleRequest(request, response);
@@ -38,18 +39,12 @@ public class BookDetailServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
 
-        // if (bookId == null || bookId.isEmpty()) {
-        //     response.getWriter().write("error: bookId is null or empty");
-        //     return;
-        // }
-
         UserActionService userActionService = new UserActionService();
 
         //加入收藏
         if ("addFavorite".equals(action) && userId != null && bookId != null) {
             try {
                 UserAction userAction = userActionService.getUserActionByUserIdAndBookId(userId, Integer.parseInt(bookId));
-                LOGGER.log(Level.INFO, "User ID: {0}", userId);
                 if (userAction == null) {
                     userAction = new UserAction();
                     userAction.setUser_id(userId);
@@ -58,7 +53,6 @@ public class BookDetailServlet extends HttpServlet {
                     userAction.setFavorite(1);
                     userActionService.addUserAction(userAction);
                 } else {
-                    LOGGER.log(Level.INFO, "UserAction not found, creating new one.");
                     userAction.setFavorite(1);
                     userActionService.updateUserAction(userAction);
                 }
@@ -70,6 +64,38 @@ public class BookDetailServlet extends HttpServlet {
                 return;
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+        }
+
+        //取消收藏
+
+        //提交评分
+        UserRatingService userRatingService = new UserRatingService();
+        if ("submitRating".equals(action) && userId != null && bookId != null) {
+            String ratingStr = request.getParameter("rating");
+            if (ratingStr == null || ratingStr.isEmpty()) {
+                response.getWriter().write("error: rating is null or empty");
+                return;
+            }
+            try {
+                double rating = Double.parseDouble(ratingStr);
+                UserRating userRating = userRatingService.getUserRatingByUserIdAndBookId(userId, Integer.parseInt(bookId));
+                if (userRating == null) {
+                    userRating = new UserRating();
+                    userRating.setUser_id(userId);
+                    userRating.setBook_id(Integer.parseInt(bookId));
+                    userRating.setRating(rating);
+                    userRatingService.addUserRating(userRating);
+                } else {
+                    userRating.setRating(rating);
+                    userRatingService.updateUserRating(userRating);
+                }
+                response.getWriter().write("success");
+                return;
+            } catch (SQLException | NumberFormatException e) {
+                e.printStackTrace();
+                response.getWriter().write("error");
+                return;
             }
         }
 

@@ -90,13 +90,33 @@ prefix="c" %>
             </p>
             <script>
               function submitRating() {
+                var bookId = "${book.id}";
                 var rating = document.getElementById("user-rating").value;
                 if (rating < 0 || rating > 10) {
                   alert("评分必须在0到10之间");
                   return;
                 }
-                // 这里可以添加代码将评分提交到服务器
-                alert("您提交的评分是：" + rating);
+                var xhr = new XMLHttpRequest();
+                xhr.open(
+                  "POST",
+                  "${pageContext.request.contextPath}/bookDetail",
+                  true
+                );
+                xhr.setRequestHeader(
+                  "Content-Type",
+                  "application/x-www-form-urlencoded"
+                );
+                xhr.onreadystatechange = function () {
+                  if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert("您提交的评分是：" + rating);
+                  } else if (xhr.readyState === 4) {
+                    // 请求失败，处理错误
+                    console.error("Request failed:", xhr.statusText);
+                  }
+                };
+                xhr.send(
+                  "action=submitRating&id=" + bookId + "&rating=" + rating
+                );
               }
 
               function addToFavorites() {

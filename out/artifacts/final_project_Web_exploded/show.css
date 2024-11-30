@@ -184,5 +184,28 @@ nav li.active {
 }
 
 .container {
-  position: relative; /* 确保容器是定位上下文 */
+  position: relative;
+}
+
+.favorite-button {
+  background-color: #ffcc00;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.favorite-button:hover {
+  background-color: #e6b800;
+}
+
+.favorite-button.favorited {
+  background-color: #ccc;
+  color: #666;
+}
+
+.unShow {
+  display: none;
 }

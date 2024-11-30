@@ -22,15 +22,23 @@ import java.util.logging.Logger;
 public class BookDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        handleRequest(request, response);
+        try {
+            handleRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        handleRequest(request, response);
+        try {
+            handleRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
@@ -40,6 +48,37 @@ public class BookDetailServlet extends HttpServlet {
         String userId = (String) session.getAttribute("userId");
 
         UserActionService userActionService = new UserActionService();
+        UserRatingService userRatingService = new UserRatingService();
+
+        //是否收藏
+        boolean isFavorite =false;
+        if (userId != null && bookId != null) {
+            try {
+                UserAction userAction = userActionService.getUserActionByUserIdAndBookId(userId, Integer.parseInt(bookId));
+                if (userAction != null && userAction.getFavorite() == 1) {
+                    isFavorite = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //是否已评分
+        boolean isRated = false;
+        double userRatingValue = 0.0;
+        String ratingTime = "";
+        if (userId != null && bookId != null) {
+            try {
+                UserRating userRating = userRatingService.getUserRatingByUserIdAndBookId(userId, Integer.parseInt(bookId));
+                if (userRating != null) {
+                    isRated = true;
+                    userRatingValue = userRating.getRating();
+                    ratingTime = userRating.getRating_time().toString();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         //加入收藏
         if ("addFavorite".equals(action) && userId != null && bookId != null) {
@@ -68,9 +107,23 @@ public class BookDetailServlet extends HttpServlet {
         }
 
         //取消收藏
+        if ("removeFavorite".equals(action) && userId != null && bookId != null) {
+            try {
+                UserAction userAction = userActionService.getUserActionByUserIdAndBookId(userId, Integer.parseInt(bookId));
+                if (userAction != null) {
+                    userAction.setFavorite(0);
+                    userActionService.updateUserAction(userAction);
+                }
+                response.getWriter().write("success");
+                return;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                response.getWriter().write("error");
+                return;
+            }
+        }
 
         //提交评分
-        UserRatingService userRatingService = new UserRatingService();
         if ("submitRating".equals(action) && userId != null && bookId != null) {
             String ratingStr = request.getParameter("rating");
             if (ratingStr == null || ratingStr.isEmpty()) {
@@ -86,9 +139,6 @@ public class BookDetailServlet extends HttpServlet {
                     userRating.setBook_id(Integer.parseInt(bookId));
                     userRating.setRating(rating);
                     userRatingService.addUserRating(userRating);
-                } else {
-                    userRating.setRating(rating);
-                    userRatingService.updateUserRating(userRating);
                 }
                 response.getWriter().write("success");
                 return;
@@ -98,17 +148,6 @@ public class BookDetailServlet extends HttpServlet {
                 return;
             }
         }
-
-        BookService bookService = new BookService();
-
-        Book book = null;
-        try {
-            book = bookService.getBookById(Integer.parseInt(bookId));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        
 
         //用户浏览记录
         if (userId != null && bookId != null) {
@@ -130,6 +169,14 @@ public class BookDetailServlet extends HttpServlet {
             }
         }
 
+        BookService bookService = new BookService();
+
+        Book book = null;
+        try {
+            book = bookService.getBookById(Integer.parseInt(bookId));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         request.setAttribute("book", book);
         request.setAttribute("book_name", book.getBook_name());
@@ -140,7 +187,10 @@ public class BookDetailServlet extends HttpServlet {
         request.setAttribute("author", book.getAuthor());
         request.setAttribute("description", book.getDescription());
         request.setAttribute("cover_image_url", book.getCover_image_url());
-
+        request.setAttribute("isFavorite", isFavorite);
+        request.setAttribute("isRated", isRated);
+        request.setAttribute("userRating", userRatingValue);
+        request.setAttribute("ratingTime", ratingTime);
 
         request.getRequestDispatcher("/bookDetail.jsp").forward(request, response);
     }

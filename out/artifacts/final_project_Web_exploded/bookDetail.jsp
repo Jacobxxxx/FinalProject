@@ -18,10 +18,6 @@ prefix="c" %>
           <button>搜索</button>
         </div>
         <div class="user-actions">
-          <a href="login.jsp">登录</a>
-          <a href="register.jsp">注册</a>
-        </div>
-        <div class="user-actions">
           <a href="profile">个人信息</a>
           <a href="favorites">收藏列表</a>
         </div>

@@ -63,5 +63,15 @@ public class UserService {
         return userDao.getUserByUsername(username);  // 根据用户名获取用户
     }
 
+    // 搜索分页获取用户
+    public List<User> searchUsersByKeywordWithPagination(String keyword, int pageNo, int pageSize) throws SQLException {
+        return userDao.searchUsersByKeywordWithPagination(keyword, pageNo, pageSize);
+    }
+
+    // 获取符合搜索条件的总记录数
+    public long countUsersByKeyword(String keyword) throws SQLException {
+        return userDao.countUsersByKeyword(keyword);
+    }
+
 
 }

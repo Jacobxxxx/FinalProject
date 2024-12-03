@@ -72,16 +72,35 @@ public class UserDao {
         }
     }
 
-    // 删除用户
+    // 删除用户因用户id是外键，所以要删除其他表里的数据
     public int deleteUser(String userId) throws SQLException {
-        String sql = "DELETE FROM users WHERE user_id = ?";
+        String deleteUserActionSQL = "DELETE FROM user_actions WHERE user_id = ?";
+        String deleteUserRatingSQL = "DELETE FROM user_ratings WHERE user_id = ?";
+        String deleteUserSQL = "DELETE FROM users WHERE user_id = ?";
+
         Connection conn = DataSourceUtils.getConnection();
         try {
-            return runner.update(conn, sql, userId);
+            conn.setAutoCommit(false); // 开启事务
+
+            // 删除 useraction 表中的关联数据
+            runner.update(conn, deleteUserActionSQL, userId);
+
+            // 删除 userrating 表中的关联数据
+            runner.update(conn, deleteUserRatingSQL, userId);
+
+            // 删除 users 表中的用户
+            int rowsAffected = runner.update(conn, deleteUserSQL, userId);
+
+            conn.commit(); // 提交事务
+            return rowsAffected;
+        } catch (SQLException e) {
+            conn.rollback(); // 发生异常时回滚事务
+            throw e;
         } finally {
             DataSourceUtils.closeConnection(conn);
         }
     }
+
 
     // 分页获取用户列表
     public List<User> getUsersByPage(int pageNo, int pageSize) throws SQLException {
@@ -132,5 +151,28 @@ public class UserDao {
         }
     }
 
+    // 搜索分页查询用户
+    public List<User> searchUsersByKeywordWithPagination(String keyword, int pageNo, int pageSize) throws SQLException {
+        String sql = "SELECT * FROM users WHERE username LIKE ? LIMIT ?, ?";
+        Connection conn = DataSourceUtils.getConnection();
+        int offset = (pageNo - 1) * pageSize;
+        try {
+            return runner.query(conn, sql, new BeanListHandler<>(User.class), "%" + keyword + "%", offset, pageSize);
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
 
+    // 获取符合搜索条件的总记录数
+    public long countUsersByKeyword(String keyword) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM users WHERE username LIKE ?";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            // 注意这里的顺序：Connection、SQL、ResultSetHandler、参数
+            return runner.query(conn, sql, new ScalarHandler<>(), "%" + keyword + "%");
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
 }
+

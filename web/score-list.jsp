@@ -43,7 +43,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <li id="score-management">
           <a href="#">评分管理</a>
           <ul id="score-submenu">
-            <li><a href="./score-list.jsp">评分列表</a></li>
+            <li><a href="./score-list">评分列表</a></li>
           </ul>
         </li>
         <li><a href="#">系统设置</a></li>

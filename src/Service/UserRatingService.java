@@ -4,6 +4,7 @@ import Dao.UserRatingDao;
 import model.UserRating;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 public class UserRatingService {
@@ -57,5 +58,15 @@ public class UserRatingService {
     // 获取特定用户和书籍的评分
     public UserRating getUserRatingByUserIdAndBookId(String userId, int bookId) throws SQLException {
         return userRatingDao.getUserRatingByUserIdAndBookId(userId, bookId);
+    }
+
+    // 获取特定用户的评分
+    public List<UserRating> getUserRatingsByUserId(String userId) throws SQLException {
+        return userRatingDao.getUserRatingsByUserId(userId);
+    }
+
+    // 获取特定书籍的评分
+    public List<UserRating> getUserRatingsByBookId(int bookId) throws SQLException {
+        return userRatingDao.getUserRatingsByBookId(bookId);
     }
 }

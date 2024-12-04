@@ -1,5 +1,5 @@
 package Service;
-import Service.UserRatingService;
+
 import model.UserRating;
 import org.junit.jupiter.api.*;
 
@@ -112,5 +112,31 @@ public class UserRatingServiceTest {
         UserRating updatedRating = userRatingService.getUserRatingById(1);
         assertEquals(9.0, updatedRating.getRating(), "评分未更新正确");
         System.out.println("成功更新评分记录 ID: " + updatedRating.getId());
+    }
+
+    // 测试根据用户ID获取评分列表
+    @Test
+    @Order(8)
+    public void testGetUserRatingsByUserId() throws SQLException {
+        List<UserRating> ratings = userRatingService.getUserRatingsByUserId("U0001");
+        assertNotNull(ratings, "查询不到指定用户的评分记录");
+        assertFalse(ratings.isEmpty(), "指定用户的评分记录为空");
+        System.out.println("查询到的评分记录数量: " + ratings.size());
+        for (UserRating rating : ratings) {
+            System.out.println("评分记录: " + rating.getId() + ", 用户: " + rating.getUser_id() + ", 图书ID: " + rating.getBook_id() + ", 评分: " + rating.getRating());
+        }
+    }
+
+    // 测试根据图书ID获取评分列表
+    @Test
+    @Order(9)
+    public void testGetUserRatingsByBookId() throws SQLException {
+        List<UserRating> ratings = userRatingService.getUserRatingsByBookId(3);
+        assertNotNull(ratings, "查询不到指定图书的评分记录");
+        assertFalse(ratings.isEmpty(), "指定图书的评分记录为空");
+        System.out.println("查询到的评分记录数量: " + ratings.size());
+        for (UserRating rating : ratings) {
+            System.out.println("评分记录: " + rating.getId() + ", 用户: " + rating.getUser_id() + ", 图书ID: " + rating.getBook_id() + ", 评分: " + rating.getRating());
+        }
     }
 }

@@ -1,4 +1,5 @@
-import Dao.UserRatingDao;
+package Dao;
+
 import model.UserRating;
 import org.junit.jupiter.api.*;
 
@@ -60,9 +61,44 @@ public class UserRatingDaoTest {
         System.out.println("查询到的评分记录: " + rating.getId() + ", 用户: " + rating.getUser_id() + ", 图书ID: " + rating.getBook_id());
     }
 
-    // 测试删除用户评分
+    // 测试查询指定用户和图书的评分
     @Test
     @Order(4)
+    public void testGetUserRatingByUserIdAndBookId() throws SQLException {
+        UserRating rating = userRatingDao.getUserRatingByUserIdAndBookId("U0001", 1);
+        assertNotNull(rating, "查询不到指定用户和图书的评分记录");
+        System.out.println("查询到的评分记录: " + rating.getId() + ", 用户: " + rating.getUser_id() + ", 图书ID: " + rating.getBook_id() + ", 评分: " + rating.getRating());
+    }
+
+    // 测试根据用户ID获取评分列表
+    @Test
+    @Order(5)
+    public void testGetUserRatingsByUserId() throws SQLException {
+        List<UserRating> ratings = userRatingDao.getUserRatingsByUserId("U0001");
+        assertNotNull(ratings, "查询不到指定用户的评分记录");
+        assertFalse(ratings.isEmpty(), "指定用户的评分记录为空");
+        System.out.println("查询到的评分记录数量: " + ratings.size());
+        for (UserRating rating : ratings) {
+            System.out.println("评分记录: " + rating.getId() + ", 用户: " + rating.getUser_id() + ", 图书ID: " + rating.getBook_id() + ", 评分: " + rating.getRating());
+        }
+    }
+
+    // 测试根据图书ID获取评分列表
+    @Test
+    @Order(6)
+    public void testGetUserRatingsByBookId() throws SQLException {
+        List<UserRating> ratings = userRatingDao.getUserRatingsByBookId(1);
+        assertNotNull(ratings, "查询不到指定图书的评分记录");
+        assertFalse(ratings.isEmpty(), "指定图书的评分记录为空");
+        System.out.println("查询到的评分记录数量: " + ratings.size());
+        for (UserRating rating : ratings) {
+            System.out.println("评分记录: " + rating.getId() + ", 用户: " + rating.getUser_id() + ", 图书ID: " + rating.getBook_id() + ", 评分: " + rating.getRating());
+        }
+    }
+
+    // 测试删除用户评分
+    @Test
+    @Order(7)
     public void testDeleteUserRating() throws SQLException {
         // 获取最后一条评分记录的 ID
         int maxId = userRatingDao.getMaxUserRatingId();
@@ -79,7 +115,7 @@ public class UserRatingDaoTest {
 
     // 测试分页获取用户评分
     @Test
-    @Order(5)
+    @Order(8)
     public void testGetUserRatingsByPage() throws SQLException {
         List<UserRating> ratings = userRatingDao.getUserRatingsByPage(1, 10);
         assertNotNull(ratings, "分页查询用户评分失败");
@@ -88,7 +124,7 @@ public class UserRatingDaoTest {
 
     // 测试获取用户评分总数
     @Test
-    @Order(6)
+    @Order(9)
     public void testGetUserRatingCount() throws SQLException {
         long count = userRatingDao.getUserRatingCount();
         System.out.println("用户评分总数: " + count);
@@ -97,7 +133,7 @@ public class UserRatingDaoTest {
 
     // 测试更新用户评分
     @Test
-    @Order(7)
+    @Order(10)
     public void testUpdateUserRating() throws SQLException {
         // 获取某个评分记录
         UserRating rating = userRatingDao.getUserRatingById(1);

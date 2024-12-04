@@ -117,4 +117,26 @@ public class UserRatingDao {
             DataSourceUtils.closeConnection(conn);
         }
     }
+
+    // 根据用户id获取用户评分列表
+    public List<UserRating> getUserRatingsByUserId(String userId) throws SQLException {
+        String sql = "SELECT * FROM user_ratings WHERE user_id = ?";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            return runner.query(conn, sql, new BeanListHandler<>(UserRating.class), userId);
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
+
+    // 根据书籍id获取用户评分列表
+    public List<UserRating> getUserRatingsByBookId(int bookId) throws SQLException {
+        String sql = "SELECT * FROM user_ratings WHERE book_id = ?";
+        Connection conn = DataSourceUtils.getConnection();
+        try {
+            return runner.query(conn, sql, new BeanListHandler<>(UserRating.class), bookId);
+        } finally {
+            DataSourceUtils.closeConnection(conn);
+        }
+    }
 }

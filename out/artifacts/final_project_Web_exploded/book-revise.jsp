@@ -21,7 +21,7 @@
 
   <div class="sidebar">
     <ul>
-      <li><a href="./index.html">数据统计</a></li>
+      <li><a href="./index.jsp">数据统计</a></li>
       <li id="user-list">
         <a href="#">用户管理</a>
         <ul id="user-submenu">

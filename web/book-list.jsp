@@ -53,19 +53,14 @@
 
   <div class="sidebar">
     <ul>
-      <li><a href="./index.html">数据统计</a></li>
+      <li><a href="./index.jsp">数据统计</a></li>
       <li id="user-list">
         <a href="#">用户管理</a>
         <ul id="user-submenu">
           <li><a href="./user-list.jsp">用户列表</a></li>
         </ul>
       </li>
-      <li id="book-type-management">
-        <a href="#">图书类型管理</a>
-        <ul id="book-type-submenu">
-          <li><a href="./book-type.jsp">图书类型列表</a></li>
-        </ul>
-      </li>
+
       <li id="book-management">
         <a href="#">图书管理</a>
         <ul id="book-submenu">
@@ -78,7 +73,7 @@
           <li><a href="./score-list">评分列表</a></li>
         </ul>
       </li>
-      <li><a href="#">系统设置</a></li>
+
     </ul>
   </div>
 
@@ -113,7 +108,7 @@
             <td>${book.book_name}</td>
             <td>${book.tag}</td>
             <td>
-              <a href="./book-revise.jsp?id=${book.id}">修改</a>
+              <a href="./book-revise?id=${book.id}">修改</a>
               <a href="./delete-book?id=${book.id}">删除</a>
             </td>
           </tr>

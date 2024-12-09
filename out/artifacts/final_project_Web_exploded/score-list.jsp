@@ -28,12 +28,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             <li><a href="./user-list.jsp">用户列表</a></li>
           </ul>
         </li>
-        <li id="book-type-management">
-          <a href="#">图书类型管理</a>
-          <ul id="book-type-submenu">
-            <li><a href="./book-type.jsp">图书类型列表</a></li>
-          </ul>
-        </li>
+
         <li id="book-management">
           <a href="#">图书管理</a>
           <ul id="book-submenu">
@@ -43,10 +38,10 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <li id="score-management">
           <a href="#">评分管理</a>
           <ul id="score-submenu">
-            <li><a href="./score-list.jsp">评分列表</a></li>
+            <li><a href="./score-list">评分列表</a></li>
           </ul>
         </li>
-        <li><a href="#">系统设置</a></li>
+
       </ul>
     </div>
 

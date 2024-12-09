@@ -98,12 +98,24 @@ public class BookDao {
         }
     }
 
-    // 删除指定ID的图书
     public int deleteBook(int id) throws SQLException {
-        String sql = "DELETE FROM books WHERE id = ?";
         Connection conn = DataSourceUtils.getConnection();
+
+        String deleteBookSql = "DELETE FROM books WHERE id = ?";
+        String deleteUserRatingSql = "DELETE FROM user_ratings WHERE book_id = ?";
+        String deleteUserActionSql = "DELETE FROM user_actions WHERE book_id = ?";
         try {
-            return runner.update(conn, sql, id);
+            conn.setAutoCommit(false);
+
+            runner.update(conn, deleteUserRatingSql, id);
+            runner.update(conn, deleteUserActionSql, id);
+            int result = runner.update(conn, deleteBookSql, id);
+
+            conn.commit();
+            return result;
+        } catch (SQLException e) {
+            conn.rollback();
+            throw e;
         } finally {
             DataSourceUtils.closeConnection(conn);
         }

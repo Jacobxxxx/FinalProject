@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
             // 管理员账户直接跳转到管理员页面
             HttpSession session = request.getSession();
             session.setAttribute("userId", "admin");  // 标记管理员登录
-            response.sendRedirect("Admin/index.jsp");  // 重定向到管理员页面
+            response.sendRedirect("index.jsp");  // 重定向到管理员页面
             return;
         }
 

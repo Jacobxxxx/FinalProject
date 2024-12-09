@@ -55,33 +55,57 @@ body {
   padding: 20px;
 }
 
-.stats {
-  display: flex;
-  justify-content: space-between;
-  text-decoration: none;
+h2 {
+  margin-top: 0;
 }
 
-.stat-box a {
-  color: inherit;
-  text-decoration: none;
+.back-button {
+  padding: 5px 30px;
+  background-color: rgb(244, 244, 244);
+  color: rgb(33, 39, 47);
+  border: none;
+  cursor: pointer;
+  border: 1px solid black;
 }
 
-.stat-box {
-
-  background-color: pink;
-  padding: 20px;
-  text-align: center;
-  flex: 1;
-  margin: 0 10px;
+.form-group {
+  margin-bottom: 15px;
 }
 
-.stat-box:hover {
-  color: blue;
-  /* 鼠标悬停时字体变为蓝色 */
+label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-/* 数据统计黄栏 */
-.data-statistics {
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+input[type="file"] {
+  margin-top: 5px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input, .form-group select, .form-group textarea, .form-group{
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#file-status {
+  font-size: 12px;
+  color: gray;
+}
+
+/* 图书添加或修改黄栏 */
+.book-revise {
   margin-top: 10px;
   background-color: rgb(255, 185, 0);
   height: 50px;

@@ -110,7 +110,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
               <td>${userRating.rating}</td>
               <td>${userRating.rating_time}</td>
               <td>
-                <a href="./delete-score?id=${userRating.id}">删除</a>
+                <a href="${pageContext.request.contextPath}/delete-score?id=${userRating.id}&searchByUser=${searchByUser}&searchByBook=${searchByBook}&page=${currentPage}">删除</a>
               </td>
             </tr>
           </c:forEach>

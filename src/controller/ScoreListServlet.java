@@ -94,6 +94,12 @@ public class ScoreListServlet extends HttpServlet {
                 }
                 totalUserRatingCount = userRatings.size();
             }
+
+            int totalPages = (int) Math.ceil((double) totalUserRatingCount / pageSize);
+            int startIndex = (currentPage - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, userRatings.size());
+            userRatings = userRatings.subList(startIndex, endIndex);
+            
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
